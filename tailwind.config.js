@@ -9,7 +9,15 @@ module.exports = {
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        brand: {
+          DEFAULT: "#00597d", // colore principale
+          light: "#ffffff",   // bianco
+          dark: "#222222",    // nero
+        },
+      },
+    },
   },
   plugins: [],
 }
