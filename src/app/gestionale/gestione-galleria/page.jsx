@@ -1,112 +1,74 @@
 'use client'
 
-import { useState, useEffect } from "react";
-import { supabase } from "../../../../lib/supabaseClient";
+import { useState, useEffect, useRef } from "react";
+
+import CaricamentoFoto from "./caricamentoFoto";
+import CreazioneGallery from "./creazioneGallery";
+import CreazioneCategorie from "./creazioneCategorie";
 
 export default function UploadPhotoForm() {
-  const [file, setFile] = useState(null);
-  const [galleryId, setGalleryId] = useState("");
-  const [galleries, setGalleries] = useState([]);
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("");
 
-  // Carica le gallery
-  useEffect(() => {
-    const fetchGalleries = async () => {
-      const { data, error } = await supabase.from("galleries").select("id, title");
-      if (!error) setGalleries(data);
-    };
-    fetchGalleries();
-  }, []);
+  const [onDisplayGallery, setOnDisplayGallery] = useState("on")
+  const [onDisplayCreateGallery, setOnDisplayCreateGallery] = useState("off")
+  const [onDisplayCategories, setOnDisplayCategories] = useState("off")
 
-  const handleUpload = async (e) => {
-    e.preventDefault();
-    if (!file || !galleryId) {
-      setMessage("Seleziona un file e una gallery");
-      return;
-    }
+  // function DisplayManagement () {
 
-    setLoading(true);
-    setMessage("");
+  //   if (onDisplayGallery == "off") {
+  //     setOnDisplayGallery("on")
+  //     setOnDisplayCreateGallery("off")
+  //   } else {
+  //     setOnDisplayGallery("off")
+  //     setOnDisplayCreateGallery("on")
+  //   }
+  // }
 
-    const filePath = `${galleryId}/${Date.now()}_${file.name}`;
+  function ClickCreazioneGallery () {
+    setOnDisplayGallery("off")
+    setOnDisplayCreateGallery("on")
+    setOnDisplayCategories("off")
+  }
 
-    const { data: storageData, error: storageError } = await supabase
-      .storage
-      .from("gallery-photos")
-      .upload(filePath, file);
+  function ClickGallery () {
+    setOnDisplayGallery("on")
+    setOnDisplayCreateGallery("off")
+    setOnDisplayCategories("off")
+  }
 
-    if (storageError) {
-      console.error(storageError);
-      setMessage("Errore durante il caricamento nello storage");
-      setLoading(false);
-      return;
-    }
-
-    const { publicUrl, error: urlError } = supabase
-      .storage
-      .from("gallery-photos")
-      .getPublicUrl(filePath);
-
-    if (urlError) {
-      console.error(urlError);
-      setMessage("Errore nel recupero URL");
-      setLoading(false);
-      return;
-    }
-
-    const { error: dbError } = await supabase.from("photos").insert({
-      gallery_id: galleryId,
-      storage_path: publicUrl,
-      title,
-      description,
-    });
-
-    if (dbError) {
-      console.error(dbError);
-      setMessage("Errore nel salvataggio nel DB");
-      setLoading(false);
-      return;
-    }
-
-    setMessage("Foto caricata con successo!");
-    setFile(null);
-    setTitle("");
-    setDescription("");
-    setGalleryId("");
-    setLoading(false);
-  };
+  function ClickCategories () {
+    setOnDisplayGallery("off")
+    setOnDisplayCreateGallery("off")
+    setOnDisplayCategories("on")
+  }
 
   return (
-    <form onSubmit={handleUpload} className="flex flex-col gap-2 w-full max-w-md">
-      <select value={galleryId} onChange={e => setGalleryId(e.target.value)} className="p-2 border rounded">
-        <option value="">Seleziona gallery</option>
-        {galleries.map(g => (
-          <option key={g.id} value={g.id}>{g.title}</option>
-        ))}
-      </select>
-
-      <input type="file" onChange={e => setFile(e.target.files[0])} accept="image/*" />
-      <input 
-        type="text" 
-        placeholder="Titolo foto" 
-        value={title} 
-        onChange={e => setTitle(e.target.value)} 
-        className="p-2 border rounded"
-      />
-      <input 
-        type="text" 
-        placeholder="Descrizione" 
-        value={description} 
-        onChange={e => setDescription(e.target.value)} 
-        className="p-2 border rounded"
-      />
-      <button type="submit" disabled={loading} className="bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
-        {loading ? "Caricamento..." : "Carica Foto"}
-      </button>
-      {message && <p className="text-sm mt-2">{message}</p>}
-    </form>
-  )
+    <>
+    <div className="grid grid-cols-12 grid-rows-12 h-full w-full md:gap-4 gap-1  justify-center items-center">
+      <div className="lg:col-span-9 col-span-12 col-start-1 lg:row-span-1 row-span-1 row-start-1 h-full rounded-2xl flex items-center justify-start">
+        <button
+        className={` text-xs font-bold flex items-center border rounded-2xl px-3 py-1
+        ${onDisplayCreateGallery === "on" ? `text-neutral-100 bg-brand  border-brand` : `text-brand border border-brand`}
+        flex items-center justify-center text-2xl ms-2 `}
+        onClick={() => ClickCreazioneGallery()}>CREAZIONE GALLERY
+        </button>
+        <button
+        className={` text-xs font-bold flex items-center border rounded-2xl px-3 py-1
+        ${onDisplayGallery === "on" ? `text-neutral-100 bg-brand  border-brand` : `text-brand border border-brand`}
+        flex items-center justify-center text-2xl ms-2 `}
+        onClick={() => ClickGallery()}>UPLOAD FOTO GALLERY</button>
+        <button
+        className={` text-xs font-bold flex items-center border rounded-2xl px-3 py-1
+        ${onDisplayCategories === "on" ? `text-neutral-100 bg-brand  border-brand` : `text-brand border border-brand`}
+        flex items-center justify-center text-2xl ms-2 `}
+        onClick={() => ClickCategories()}>CREAZIONE CATEGORIE</button>
+      </div>
+      <div className="lg:p-5 p-4 pe-5 justify-center lg:col-span-12 col-span-12 col-start-1 lg:row-span-11 row-span-11 row-start-2 h-full bg-neutral-800/50 rounded-2xl overflow-auto">
+        <CaricamentoFoto onDisplay={onDisplayGallery}/>
+        <CreazioneGallery onDisplay={onDisplayCreateGallery}/>
+        <CreazioneCategorie onDisplay={onDisplayCategories}/>
+      </div>
+    </div>
+    
+    </>
+  );
 }
