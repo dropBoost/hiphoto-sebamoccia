@@ -25,8 +25,14 @@ export default function LAYOUTPizzeria({ children }) {
     <>
     <div className="grid grid-cols-12 grid-rows-12 h-screen w-screen md:p-5 p-1 justify-center items-center bg-neutral-300">
         <div className="shadow-xl z-50 rounded-t-2xl col-span-12 row-span-1 col-start-1 row-start-1 h-[100%] bg-brand p-5 flex lg:items-center lg:justify-between md:items-start md:justify-between items-center justify-between">
-            <div className="flex flex-row items-center gap-5">
-                <Image src={"/logo-fullwhite.png"} width={70} height={50} alt="logo michele in the world"/>
+            <div className="flex flex-row items-center gap-5 max-h-full">
+               <Image
+                src="/logo-fullwhite.png"
+                width={20}
+                height={50}
+                alt="logo sebastiano moccia"
+                className="max-h-full w-auto object-contain"
+                />
             </div>
             <div className="">
 
