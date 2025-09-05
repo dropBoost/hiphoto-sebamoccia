@@ -40,7 +40,7 @@ export const socialLink = [
     {name:'whatsApp',link:'https://www.whatsapp.com',icon: ICONwhatsApp, info:"+39 366 35 85 395",attivoWeb:"true"},
     {name:'facebook',link:'fasc',icon: ICONfacebook, info:"@facebbok",attivoWeb:"true"},
     {name:'instagram',link:'#',icon: ICONinstagram, info:"@instagram",attivoWeb:"true"},
-    {name:'tiktok',link:'#',icon: ICONtikTok, info:"@tiktok",attivoWeb:"true"},
+    {name:'tiktok',link:'#',icon: ICONtikTok, info:"@tiktok",attivoWeb:"false"},
     {name:'email',link:'#',icon: ICONemail, info:"info@sebamoccia.it",attivoWeb:"true"},
     {name:'tel',link:'dsda',icon: ICONtel, info:"+393293968096",attivoWeb:"true"},
   ]
@@ -48,6 +48,16 @@ export const socialLink = [
 // MODULI GESTIONALE
 
 export const moduliGestionale = [
+    {name:'dashboard', link:'/gestionale/dashboard', linkActive:'dashboard', icon: ICONone, label:'dashboard', attivo:'true'},
+    {name:'gestione galleria', link:'/gestionale/gestione-galleria', linkActive:'gestione-galleria', icon: ICONtwo, label:'gestione galleria', attivo:'true'},
+    {name:'agenda eventi', link:'/gestionale/agenda-eventi', linkActive:'agenda-eventi', icon: ICONthree, label:'agenda eventi', attivo:'true'},
+    {name:'redazione preventivi', link:'/redazione/gestione-preventivi', linkActive:'redazione-preventivi', icon: ICONfour, label:'redazione preventivi', attivo:'true'},
+    {name:'gestione preventivi', link:'/gestionale/gestione-preventivi', linkActive:'gestione-preventivi', icon: ICONfive, label:'gestione preventivi', attivo:'true'},
+  ]
+
+// MODULI PORTFOLIO
+
+export const moduliPortfolio = [
     {name:'dashboard', link:'/gestionale/dashboard', linkActive:'dashboard', icon: ICONone, label:'dashboard', attivo:'true'},
     {name:'gestione galleria', link:'/gestionale/gestione-galleria', linkActive:'gestione-galleria', icon: ICONtwo, label:'gestione galleria', attivo:'true'},
     {name:'agenda eventi', link:'/gestionale/agenda-eventi', linkActive:'agenda-eventi', icon: ICONthree, label:'agenda eventi', attivo:'true'},

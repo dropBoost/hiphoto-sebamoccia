@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { poweredBy } from "./cosetting";
+import { companyName } from "./cosetting";
 
 export default function Home() {
   return (
@@ -14,7 +15,7 @@ export default function Home() {
         <div className="flex flex-col justify-center items-center border p-5 h-full gap-5 rounded-xl bg-brand-dark/30">
         <Image src={'/logo-fullwhite.png'} width={80} height={100}/>
         <hr className="border border-brand-light w-full" />
-        <h1 className="text-brand-light/30">SEBASTIANO MOCCIA | Photography</h1>
+        <h1 className="text-brand-light/30">{companyName}</h1>
         </div>
       </div>
       <div className="flex justify-center items-center p-5 bg-brand-light w-full">

@@ -1,11 +1,12 @@
 'use client'
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
-import { supabase } from "../../../lib/supabaseClient"
+import { supabase } from "@/lib/supabaseClient"
 import Image from "next/image"
 import MenuSidebar from "../componenti/menuGestionaleSidebar"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons"
+import { companyName } from "../cosetting"
 
 const ICONoff = <FontAwesomeIcon icon={faRightFromBracket}/>
 
@@ -30,7 +31,7 @@ export default function LAYOUTPizzeria({ children }) {
                 src="/logo-fullwhite.png"
                 width={20}
                 height={50}
-                alt="logo sebastiano moccia"
+                alt={`logo ${companyName}`}
                 className="max-h-full w-auto object-contain"
                 />
             </div>

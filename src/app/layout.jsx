@@ -8,7 +8,7 @@ const quicksand = Quicksand({
 
 export const metadata = {
   title: `${companyName}`,
-  description: `${poweredBy}`,
+  description: `hiphoto - GESTIONALE per FOTOGRAFI e CREATIVI | ${poweredBy}`,
 };
 
 export default function RootLayout({ children }) {
